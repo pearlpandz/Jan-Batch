@@ -5,6 +5,7 @@ import Header from './reusables/header';
 import { Application } from './reusables/styled-components/logo';
 import './App.css';
 import CartPage from './pages/cart';
+import CategoryList from './pages/category/list';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<HomePage />} />
+          <Route path='/categories' element={<CategoryList />} />
           <Route path='/category/:name' element={<CategoryPage />} />
           <Route path='/cart' element={<CartPage />} />
         </Routes>

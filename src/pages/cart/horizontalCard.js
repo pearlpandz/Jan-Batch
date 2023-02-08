@@ -9,6 +9,10 @@ import { Grid, TextField } from '@mui/material';
 export default function HorizontalCard({ product, updateQuantity }) {
     const { title, description, price, image, quantity, id } = product;
 
+    if(id === 1) {
+        throw new Error("test error");
+    }
+
     const handleOnChange = (event) => {
         updateQuantity(id, Number(event.target.value))
     }
@@ -16,49 +20,49 @@ export default function HorizontalCard({ product, updateQuantity }) {
     return (
         <Card sx={{ display: 'flex' }}>
             <Grid container spacing={2}>
-            <Grid item xs={2}>
-                <CardMedia
-                    component="img"
-                    sx={{ height: 100, width: 100 }}
-                    image={image}
-                    alt={title}
-                />
-            </Grid>
-            <Grid item xs={10}>
-                <CardContent>
-                    <Grid container spacing={2}>
-                        <Grid item xs={5}>
-                            <Box>
-                                <Typography component="div" variant="h5">
-                                    {title}
-                                </Typography>
-                                <Typography component="p" variant="p">
-                                    {description}
-                                </Typography>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Box>
+                <Grid item xs={2}>
+                    <CardMedia
+                        component="img"
+                        sx={{ height: 100, width: 100 }}
+                        image={image}
+                        alt={title}
+                    />
+                </Grid>
+                <Grid item xs={10}>
+                    <CardContent>
+                        <Grid container spacing={2}>
+                            <Grid item xs={5}>
+                                <Box>
+                                    <Typography component="div" variant="h5">
+                                        {title}
+                                    </Typography>
+                                    <Typography component="p" variant="p">
+                                        {description}
+                                    </Typography>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Box>
 
-                                <Typography component="div" variant="h5">
-                                    {price}
-                                </Typography>
+                                    <Typography component="div" variant="h5">
+                                        {price}
+                                    </Typography>
 
-                            </Box>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Box>
+                                    <TextField type="number" value={quantity} onChange={(event) => handleOnChange(event)} />
+                                </Box>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Box>
+                                    {quantity * price}
+                                </Box>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={3}>
-                            <Box>
-                                <TextField type="number" value={quantity} onChange={(event) => handleOnChange(event)} />
-                            </Box>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Box>
-                                {quantity * price}
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </CardContent>
-            </Grid>
+                    </CardContent>
+                </Grid>
             </Grid>
         </Card>
     );

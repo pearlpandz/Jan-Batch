@@ -1,5 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { Divider, Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
+import ErrorBoundary from '../../reusables/components/error-boundary';
 import HorizontalCard from './horizontalCard'
 
 
@@ -31,13 +34,32 @@ function CartPage() {
         setActualItems(_actualItems);
     }
 
+    const total = useMemo(() => {
+        console.log('test');
+        const prices = actualItems.map(a => a.price * a.quantity)
+        return prices.reduce((a,b) => a+b, 0)
+    }, [actualItems])
+
   return (
     <div>
         {
             actualItems?.map(product => (
-                <HorizontalCard key={product.id} product={product} updateQuantity={updateQuantity} />
+                <ErrorBoundary key={product.id}>
+                    <HorizontalCard product={product} updateQuantity={updateQuantity} />
+                </ErrorBoundary>
             ))
         }
+        <Divider />
+        <Box sx={{padding: 2}}>
+        <Grid container spacing={2}>
+            <Grid item xs={10}>
+                <Typography>Total</Typography>
+            </Grid>
+            <Grid item xs={2}>
+                <Typography>{total}</Typography>
+            </Grid>
+        </Grid>
+        </Box>
     </div>
   )
 }
